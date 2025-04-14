@@ -62,10 +62,10 @@ void test3(){//驱动第一到八个管子(动态显示)。
 }
 
 
-int total_0=99999999;
-int total_1=99999999;
+unsigned long total_0=99999999;
+unsigned long total_1=99999999;
 int num(int index){//返回指定位的数字，注意本身的位数判断！去掉前导0	
-	int ret=total_1;
+	unsigned long ret=total_1;
 	int i=0;//统计位数
     int retArr[8] = {10, 10, 10, 10, 10, 10, 10, 10}; // 默认全灭
 	for(;ret>0;i++){//统计可能的每一位

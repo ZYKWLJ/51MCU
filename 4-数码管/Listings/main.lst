@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   MAIN                                                              04/14/2025 16:26:20 PAGE 1   
+C51 COMPILER V9.60.7.0   MAIN                                                              04/14/2025 20:04:11 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   50          unsigned int count1=0;
   51          
   52          void test3(){//驱动第一到八个管子(动态显示)。
-C51 COMPILER V9.60.7.0   MAIN                                                              04/14/2025 16:26:20 PAGE 2   
+C51 COMPILER V9.60.7.0   MAIN                                                              04/14/2025 20:04:11 PAGE 2   
 
   53   1              P0=0x00;
   54   1              while(1){
@@ -76,10 +76,10 @@ line level    source
   62   1      }
   63          
   64          
-  65          int total_0=99999999;
-  66          int total_1=99999999;
+  65          unsigned long total_0=99999999;
+  66          unsigned long total_1=99999999;
   67          int num(int index){//返回指定位的数字，注意本身的位数判断！去掉前导0     
-  68   1              int ret=total_1;
+  68   1              unsigned long ret=total_1;
   69   1              int i=0;//统计位数
   70   1          int retArr[8] = {10, 10, 10, 10, 10, 10, 10, 10}; // 默认全灭
   71   1              for(;ret>0;i++){//统计可能的每一位
@@ -126,7 +126,7 @@ line level    source
  112   4                                      P2=P2_arr[7-(i-1)];//选中哪一个数码管(从右减小)
  113   4                                      P0 = arr[num(i)];//选中当前数码管的那几个段，即打印当前数码管
  114   4                                      delay(delayInternal); // 短暂延时，用于显示
-C51 COMPILER V9.60.7.0   MAIN                                                              04/14/2025 16:26:20 PAGE 3   
+C51 COMPILER V9.60.7.0   MAIN                                                              04/14/2025 20:04:11 PAGE 3   
 
  115   4                                      P0 = 0x00; // 消隐
  116   4                                      count+=delayInternal;
@@ -145,11 +145,11 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    486    ----
+   CODE SIZE        =    590    ----
    CONSTANT SIZE    =     16    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =     40      32
+   DATA SIZE        =     44      34
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
