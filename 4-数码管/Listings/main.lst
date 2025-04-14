@@ -1,0 +1,158 @@
+C51 COMPILER V9.60.7.0   MAIN                                                              04/14/2025 16:26:20 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: D:\3software\keil\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE INCDIR(D:\3software\keil\C51\INC\
+                    -Atmel) DEBUG OBJECTEXTEND PRINT(.\Listings\main.lst) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include<REGX52.h>
+   2          void delay(unsigned nms)        //@11.0592MHz
+   3          {
+   4   1              unsigned char data i, j;
+   5   1              while(nms)
+   6   1              {
+   7   2                      i = 2;
+   8   2                      j = 199;
+   9   2                      do
+  10   2                      {
+  11   3                              while (--j);
+  12   3                      } while (--i);
+  13   2                      nms--;
+  14   2              }
+  15   1      }
+  16          
+  17          unsigned int arr[11]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F,0x00/*全灭*//*0110,1111*/};//0~9
+             -的段码
+  18          
+  19          // 依次对应 8 个数码管的选择
+  20          // 这里将 P2_2、P2_3、P2_4 的状态反映在一个字节的第 2、3、4 位
+  21          // 根据正确的位选逻辑修改 P2_arr 数组
+  22          unsigned char P2_arr[8] = {
+  23              0x1C,  // 0001 1100: LSC=1, LSB=1, LSA=1 → 数码管 0
+  24              0x18,  // 0001 1000: LSC=1, LSB=1, LSA=0 → 数码管 1
+  25              0x14,  // 0001 0100: LSC=1, LSB=0, LSA=1 → 数码管 2
+  26              0x10,  // 0001 0000: LSC=1, LSB=0, LSA=0 → 数码管 3
+  27              0x0C,  // 0000 1100: LSC=0, LSB=1, LSA=1 → 数码管 4
+  28              0x08,  // 0000 1000: LSC=0, LSB=1, LSA=0 → 数码管 5
+  29              0x04,  // 0000 0100: LSC=0, LSB=0, LSA=1 → 数码管 6
+  30              0x00   // 0000 0000: LSC=0, LSB=0, LSA=0 → 数码管 7
+  31          };
+  32          
+  33          
+  34          void test1(){
+  35   1              P2 = P2_arr[0];
+  36   1              P0 = 0x06; // 显示数字1（b和c段亮,因为单片机自动上电IO口为阳极，所以需要手动�
+             -��0个口赋值为0还是1，否则全亮影响结果）（或者P0=arr[2]）
+  37   1      }
+  38          
+  39          
+  40          unsigned int count=0;
+  41          void test2(){
+  42   1              P2 = P2_arr[0];
+  43   1              P0=0x00;
+  44   1              while(1){
+  45   2                      P0=arr[count++%10];
+  46   2                      delay(1000);
+  47   2              }       
+  48   1      }
+  49          
+  50          unsigned int count1=0;
+  51          
+  52          void test3(){//驱动第一到八个管子(动态显示)。
+C51 COMPILER V9.60.7.0   MAIN                                                              04/14/2025 16:26:20 PAGE 2   
+
+  53   1              P0=0x00;
+  54   1              while(1){
+  55   2                      int i=0;
+  56   2                      for(;i<8;i++){
+  57   3                              delay(1);
+  58   3                              P2=P2_arr[i];
+  59   3                              P0=arr[i];
+  60   3                      }
+  61   2              }
+  62   1      }
+  63          
+  64          
+  65          int total_0=99999999;
+  66          int total_1=99999999;
+  67          int num(int index){//返回指定位的数字，注意本身的位数判断！去掉前导0     
+  68   1              int ret=total_1;
+  69   1              int i=0;//统计位数
+  70   1          int retArr[8] = {10, 10, 10, 10, 10, 10, 10, 10}; // 默认全灭
+  71   1              for(;ret>0;i++){//统计可能的每一位
+  72   2                      retArr[i]=ret%10;
+  73   2                      ret/=10;
+  74   2              }
+  75   1              if(index>i)return 10;//超出位数的统一不亮
+  76   1              return retArr[index-1];
+  77   1      }
+  78          
+  79          unsigned int delayInternal=1;//每一个数码管的延时显示
+  80          
+  81          void test4(){//驱动第一到八个管子, 倒计时99999999秒。
+  82   1              P0=0x00;//初始状态全为0，即灭
+  83   1              while(1){
+  84   2                      unsigned int count=0;
+  85   2                      P2=0X00;
+  86   2                      //8个管子会维持1s
+  87   2                      while(count<1000){
+  88   3                              int i = 1;
+  89   3                              for (; i <= 8; i++) { // 动态扫描显示八个数码管
+  90   4                                      P2=P2_arr[i-1];//选中哪一个数码管
+  91   4                                      P0 = arr[num(i)];//选中当前数码管的那几个段，即打印当前数码管
+  92   4                                      delay(delayInternal); // 短暂延时，用于显示
+  93   4                                      P0 = 0x00; // 消隐
+  94   4                                      count+=delayInternal;
+  95   4                              }
+  96   3                      }
+  97   2                      total_1--;
+  98   2                      if(total_1==0)total_1=total_0;//循环
+  99   2              }
+ 100   1      }
+ 101          
+ 102          
+ 103          void test5(){//驱动第一到八个管子, 倒计时99999999秒。
+ 104   1              P0=0x00;//初始状态全为0，即灭
+ 105   1              while(1){
+ 106   2                      unsigned int count=0;
+ 107   2                      P2=0X00;
+ 108   2                      //8个管子会维持1s
+ 109   2                      while(count<1000){
+ 110   3                              int i = 1;
+ 111   3                              for (; i <= 8; i++) { // 动态扫描显示八个数码管
+ 112   4                                      P2=P2_arr[7-(i-1)];//选中哪一个数码管(从右减小)
+ 113   4                                      P0 = arr[num(i)];//选中当前数码管的那几个段，即打印当前数码管
+ 114   4                                      delay(delayInternal); // 短暂延时，用于显示
+C51 COMPILER V9.60.7.0   MAIN                                                              04/14/2025 16:26:20 PAGE 3   
+
+ 115   4                                      P0 = 0x00; // 消隐
+ 116   4                                      count+=delayInternal;
+ 117   4                              }
+ 118   3                      }
+ 119   2                      total_1--;
+ 120   2                      if(total_1==0)total_1=total_0;//循环
+ 121   2              }
+ 122   1      }
+ 123          
+ 124          void main()
+ 125          {
+ 126   1              test5();
+ 127   1              while(1);
+ 128   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    486    ----
+   CONSTANT SIZE    =     16    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     40      32
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
