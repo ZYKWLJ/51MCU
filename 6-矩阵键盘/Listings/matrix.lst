@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   MATRIX                                                            04/22/2025 15:14:27 PAGE 1   
+C51 COMPILER V9.60.7.0   MATRIX                                                            04/22/2025 18:46:51 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MATRIX
@@ -17,8 +17,8 @@ line level    source
    7   1              P1_3=0;//扫描第1列
    8   1              if(P1_7==0){delay_ms(10);while(P1_7==0);delay_ms(10);KeyNumber=1;}//扫描第1行
    9   1              if(P1_6==0){delay_ms(10);while(P1_6==0);delay_ms(10);KeyNumber=5;}//扫描第2行
-  10   1              if(P1_5==0){delay_ms(10);while(P1_5==0);delay_ms(10);KeyNumber=9;}//扫描第3行?
-  11   1              if(P1_4==0){delay_ms(10);while(P1_4==0);delay_ms(10);KeyNumber=13;}//扫描第4行?
+  10   1              if(P1_5==0){delay_ms(10);while(P1_5==0);delay_ms(10);KeyNumber=9;}//扫描第3行
+  11   1              if(P1_4==0){delay_ms(10);while(P1_4==0);delay_ms(10);KeyNumber=13;}//扫描第4行
   12   1              
   13   1              P1=0xFF;//全置1
   14   1              P1_2=0;//扫描第2列

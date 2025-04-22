@@ -2,5 +2,7 @@
 #define _DELAY_H_
 void delay_10us(unsigned int ten_us);//延迟10us
 void delay_ms(unsigned int ms);//延迟1ms
+void delay1000ms(void);	//@12.000MHz
+
 #endif
 

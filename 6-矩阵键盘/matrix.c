@@ -7,8 +7,8 @@ unsigned char matrixKey(){
 	P1_3=0;//扫描第1列
 	if(P1_7==0){delay_ms(10);while(P1_7==0);delay_ms(10);KeyNumber=1;}//扫描第1行
 	if(P1_6==0){delay_ms(10);while(P1_6==0);delay_ms(10);KeyNumber=5;}//扫描第2行
-	if(P1_5==0){delay_ms(10);while(P1_5==0);delay_ms(10);KeyNumber=9;}//扫描第3行?
-	if(P1_4==0){delay_ms(10);while(P1_4==0);delay_ms(10);KeyNumber=13;}//扫描第4行?
+	if(P1_5==0){delay_ms(10);while(P1_5==0);delay_ms(10);KeyNumber=9;}//扫描第3行
+	if(P1_4==0){delay_ms(10);while(P1_4==0);delay_ms(10);KeyNumber=13;}//扫描第4行
 	
 	P1=0xFF;//全置1
 	P1_2=0;//扫描第2列

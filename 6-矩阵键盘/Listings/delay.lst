@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   DELAY                                                             04/22/2025 14:53:51 PAGE 1   
+C51 COMPILER V9.60.7.0   DELAY                                                             04/22/2025 18:46:51 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE DELAY
@@ -33,13 +33,37 @@ line level    source
   23   1              for(i=ms;i>0;i--)
   24   1                      for(j=110;j>0;j--);
   25   1      }
+  26          
+  27          /*******************************************************************************
+  28          * 函 数 名       : delay_1000ms
+  29          * 函数功能           : ms延时函数，延时1s
+  30          * 输    入       : ms：ms延时时间
+  31          * 输    出             : 无
+  32          *******************************************************************************/
+  33          
+  34          void delay1000ms(void)  //@12.000MHz
+  35          {
+  36   1              unsigned char data i, j, k;
+  37   1              i = 8;
+  38   1              j = 154;
+  39   1              k = 122;
+  40   1              do
+  41   1              {
+  42   2                      do
+  43   2                      {
+  44   3                              while (--k);
+  45   3                      } while (--j);
+  46   2              } while (--i);
+  47   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     41    ----
+   CODE SIZE        =     54    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
+C51 COMPILER V9.60.7.0   DELAY                                                             04/22/2025 18:46:51 PAGE 2   
+
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
