@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   MAIN                                                              04/22/2025 15:14:27 PAGE 1   
+C51 COMPILER V9.60.7.0   MAIN                                                              04/22/2025 16:21:17 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
@@ -8,34 +8,126 @@ COMPILER INVOKED BY: D:\3software\keil\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) 
 
 line level    source
 
-   1          #include "lcd1602.h"
-   2          #include "matrix.h"
+   1          // #include "lcd1602.h"
+   2          // #include "matrix.h"
    3          
-   4          void main()
-   5          {
-   6   1          unsigned char key = 0;
-   7   1          lcd1602_init();
-   8   1          lcd1602_show_string(0, 0, "MatrixKey inVS:");
-   9   1          lcd1602_show_string(0, 1, "Input:");
-  10   1          lcd1602_show_string(6, 1, "00");
-  11   1          while (1)
-  12   1          {
-  13   2              key = matrixKey();
-  14   2              if (key)
-  15   2              {
-  16   3                  lcd1602_show_string(6, 1, lcd1602_num_2_str(key));
-  17   3              }
-  18   2          }
-  19   1      }
+   4          // void main()
+   5          // {
+   6          //     unsigned char key = 0;
+   7          //     lcd1602_init();
+   8          //     lcd1602_show_string(0, 0, "MatrixKey:");
+   9          //     lcd1602_show_string(0, 1, "Input:");
+  10          //     lcd1602_show_string(6, 1, "00");
+  11          //     while (1)
+  12          //     {
+  13          //         key = matrixKey();
+  14          //         if (key)
+  15          //         {
+  16          //             lcd1602_show_string(6, 1, lcd1602_num_2_str(key));
+  17          //         }
+  18          //     }
+  19          // }
+  20          
+  21          #include "lcd1602.h"
+  22          #include "matrix.h"
+  23          #include <string.h>
+  24          
+  25          // 清零函数
+  26          void clear_password(unsigned char *start, unsigned char *my_code)
+  27          {
+  28   1          unsigned char i = 0; // 将i的定义移到函数开头
+  29   1          lcd1602_show_string(6, 1, "------");
+  30   1          *start = 6;
+  31   1          for (i = 0; i < 6; i++)
+  32   1          {
+  33   2              my_code[i] = 0;
+  34   2          }
+  35   1      }
+  36          
+  37          void main()
+  38          {
+  39   1          // 将所有变量定义移到函数开头
+  40   1          unsigned char key = 0;
+  41   1          unsigned char start = 6; // 除去之前的INPUT:
+  42   1          unsigned char password[7] = "123456";
+  43   1          unsigned char my_code[7] = {0};
+  44   1      
+  45   1          lcd1602_init();
+  46   1          lcd1602_show_string(0, 0, "Password:");
+  47   1          lcd1602_show_string(0, 1, "Input:");
+  48   1          lcd1602_show_string(6, 1, "------");
+  49   1      
+  50   1          while (1)
+  51   1          {
+  52   2              key = matrixKey();
+  53   2              if (key) // 0~9密码，10为确认，11位为删除，其余不起作用
+  54   2              {
+C51 COMPILER V9.60.7.0   MAIN                                                              04/22/2025 16:21:17 PAGE 2   
+
+  55   3                  if (key == 10) // 确认键，可以未到达12自己确认，但一定会报错
+  56   3                  {
+  57   4                      my_code[6] = '\0'; // 确保字符串正确终止
+  58   4                      if (strcmp((char *)my_code, (char *)password) == 0)
+  59   4                      {
+  60   5                          lcd1602_show_string(13, 0, "   "); // 清空原来的ERR
+  61   5                          lcd1602_show_string(14, 0, "OK");
+  62   5                          clear_password(&start, my_code); // 成功了也要清零！
+  63   5                      }
+  64   4                      else
+  65   4                      {
+  66   5                          lcd1602_show_string(13, 0, "ERR"); // 错误之后，清零重新输入
+  67   5                          clear_password(&start, my_code);
+  68   5                      }
+  69   4                  }
+  70   3                  else if (key == 11) // 取消键
+  71   3                  {
+  72   4                      if (start > 6)
+  73   4                      {
+  74   5                          lcd1602_show_string(--start, 1, "-");
+  75   5                          my_code[start - 6] = 0;
+  76   5                      }
+  77   4                  }
+  78   3                  else if (key > 11)
+  79   3                  { // 按下12以后的键，没有任何其他功能
+  80   4                      continue;
+  81   4                  }
+  82   3                  else if (start < 12) // 防止数组越界
+  83   3                  {
+  84   4                      lcd1602_show_string(start++, 1, lcd1602_num_2_str_0_9(key)); // 每按下一次，显示�
+             -�标就左移一次
+  85   4                      my_code[start - 7] = key + '0';                              // 注意这里应该是start
+             --7，因为start已经自增了
+  86   4                  }
+  87   3                  if (start == 12)
+  88   3                  { // 到达12位自动确认
+  89   4      
+  90   4                      my_code[6] = '\0'; // 添加字符串结束符
+  91   4                      if (strcmp((char *)my_code, (char *)password) == 0)
+  92   4                      {
+  93   5                          lcd1602_show_string(13, 0, "   "); // 清空原来的ERR
+  94   5                          lcd1602_show_string(14, 0, "OK");
+  95   5                          clear_password(&start, my_code); // 成功了也要清零！
+  96   5                      }
+  97   4                      else
+  98   4                      {
+  99   5                          lcd1602_show_string(13, 0, "ERR"); // ERR比OK长，会自己覆盖
+ 100   5                          clear_password(&start, my_code);
+ 101   5                      }
+ 102   4                  }
+ 103   3              }
+ 104   2          }
+ 105   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     65    ----
-   CONSTANT SIZE    =     26    ----
+   CODE SIZE        =    375    ----
+   CONSTANT SIZE    =     51    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----       1
+   DATA SIZE        =   ----      22
    IDATA SIZE       =   ----    ----
+C51 COMPILER V9.60.7.0   MAIN                                                              04/22/2025 16:21:17 PAGE 3   
+
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
 

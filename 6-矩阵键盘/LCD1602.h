@@ -2,7 +2,7 @@
 #define _lcd1602_H
 #include<REGX52.h>
 #include "delay.h"
-
+#include <stdlib.h>
 //LCD1602数据口4位和8位定义，若为1，则为LCD1602四位数据口驱动，反之为8位
 #define LCD1602_4OR8_DATA_INTERFACE 0 //默认使用8位数据口LCD1602
 
@@ -20,5 +20,6 @@ typedef unsigned int u16;
 void lcd1602_init(void);
 void lcd1602_clear(void);
 void lcd1602_show_string(u8 x,u8 y,u8 *str);
-unsigned char * lcd1602_num_2_str(unsigned char);
+unsigned char * lcd1602_num_2_str(unsigned char);//显示00~16
+unsigned char *lcd1602_num_2_str_0_9(unsigned char num);//显示0~9
 #endif

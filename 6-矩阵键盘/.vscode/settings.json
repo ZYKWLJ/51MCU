@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "regx52.h": "c",
-        "REGX52.H": "cpp"
+        "REGX52.H": "cpp",
+        "STDIO.H": "cpp",
+        "lcd1602.h": "c"
     }
 }

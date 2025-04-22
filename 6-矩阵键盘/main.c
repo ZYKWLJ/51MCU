@@ -5,7 +5,7 @@ void main()
 {
     unsigned char key = 0;
     lcd1602_init();
-    lcd1602_show_string(0, 0, "MatrixKey inVS:");
+    lcd1602_show_string(0, 0, "MatrixKey:");
     lcd1602_show_string(0, 1, "Input:");
     lcd1602_show_string(6, 1, "00");
     while (1)
