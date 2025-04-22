@@ -1,0 +1,60 @@
+C51 COMPILER V9.60.7.0   MATRIX                                                            04/22/2025 15:14:27 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MATRIX
+OBJECT MODULE PLACED IN .\Objects\matrix.obj
+COMPILER INVOKED BY: D:\3software\keil\C51\BIN\C51.EXE matrix.c OPTIMIZE(8,SPEED) BROWSE INCDIR(D:\3software\keil\C51\IN
+                    -C\Atmel) DEBUG OBJECTEXTEND PRINT(.\Listings\matrix.lst) OBJECT(.\Objects\matrix.obj)
+
+line level    source
+
+   1          #include "matrix.h"
+   2          
+   3          unsigned char matrixKey(){
+   4   1              
+   5   1              unsigned char KeyNumber=0;
+   6   1              P1=0xFF;//全置1
+   7   1              P1_3=0;//扫描第1列
+   8   1              if(P1_7==0){delay_ms(10);while(P1_7==0);delay_ms(10);KeyNumber=1;}//扫描第1行
+   9   1              if(P1_6==0){delay_ms(10);while(P1_6==0);delay_ms(10);KeyNumber=5;}//扫描第2行
+  10   1              if(P1_5==0){delay_ms(10);while(P1_5==0);delay_ms(10);KeyNumber=9;}//扫描第3行?
+  11   1              if(P1_4==0){delay_ms(10);while(P1_4==0);delay_ms(10);KeyNumber=13;}//扫描第4行?
+  12   1              
+  13   1              P1=0xFF;//全置1
+  14   1              P1_2=0;//扫描第2列
+  15   1              if(P1_7==0){delay_ms(10);while(P1_7==0);delay_ms(10);KeyNumber=2;}//扫描第1行
+  16   1              if(P1_6==0){delay_ms(10);while(P1_6==0);delay_ms(10);KeyNumber=6;}//扫描第2行
+  17   1              if(P1_5==0){delay_ms(10);while(P1_5==0);delay_ms(10);KeyNumber=10;}//扫描第3行
+  18   1              if(P1_4==0){delay_ms(10);while(P1_4==0);delay_ms(10);KeyNumber=14;}//扫描第4行
+  19   1              
+  20   1              P1=0xFF;//全置1
+  21   1              P1_1=0;//扫描第3列
+  22   1              if(P1_7==0){delay_ms(10);while(P1_7==0);delay_ms(10);KeyNumber=3;}//扫描第1行
+  23   1              if(P1_6==0){delay_ms(10);while(P1_6==0);delay_ms(10);KeyNumber=7;}//扫描第2行
+  24   1              if(P1_5==0){delay_ms(10);while(P1_5==0);delay_ms(10);KeyNumber=11;}//扫描第3行
+  25   1              if(P1_4==0){delay_ms(10);while(P1_4==0);delay_ms(10);KeyNumber=15;}//扫描第4行
+  26   1              
+  27   1              P1=0xFF;//全置1
+  28   1              P1_0=0;//扫描第4列
+  29   1              if(P1_7==0){delay_ms(10);while(P1_7==0);delay_ms(10);KeyNumber=4;}//扫描第1行
+  30   1              if(P1_6==0){delay_ms(10);while(P1_6==0);delay_ms(10);KeyNumber=8;}//扫描第2行
+  31   1              if(P1_5==0){delay_ms(10);while(P1_5==0);delay_ms(10);KeyNumber=12;}//扫描第3行
+  32   1              if(P1_4==0){delay_ms(10);while(P1_4==0);delay_ms(10);KeyNumber=16;}//扫描第4行
+  33   1              
+  34   1              return KeyNumber;
+  35   1      
+  36   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    393    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
