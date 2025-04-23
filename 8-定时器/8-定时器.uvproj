@@ -381,6 +381,46 @@
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
             </File>
+            <File>
+              <FileName>delay.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\delay.h</FilePath>
+            </File>
+            <File>
+              <FileName>delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>experiment1.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\experiment1.h</FilePath>
+            </File>
+            <File>
+              <FileName>experiment1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\experiment1.c</FilePath>
+            </File>
+            <File>
+              <FileName>experiment2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\experiment2.c</FilePath>
+            </File>
+            <File>
+              <FileName>experiment2.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\experiment2.h</FilePath>
+            </File>
+            <File>
+              <FileName>experiment3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\experiment3.c</FilePath>
+            </File>
+            <File>
+              <FileName>experiment3.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\experiment3.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

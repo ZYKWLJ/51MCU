@@ -1,0 +1,1 @@
+"experiment2.c" OPTIMIZE (8,SPEED) BROWSE INCDIR(D:\3software\keil\C51\INC\Atmel) DEBUG OBJECTEXTEND PRINT(.\Listings\experiment2.lst) OBJECT(.\Objects\experiment2.obj)

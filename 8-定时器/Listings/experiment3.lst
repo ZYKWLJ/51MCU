@@ -1,0 +1,25 @@
+C51 COMPILER V9.60.7.0   EXPERIMENT3                                                       04/23/2025 21:52:29 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE EXPERIMENT3
+OBJECT MODULE PLACED IN .\Objects\experiment3.obj
+COMPILER INVOKED BY: D:\3software\keil\C51\BIN\C51.EXE experiment3.c OPTIMIZE(8,SPEED) BROWSE INCDIR(D:\3software\keil\C
+                    -51\INC\Atmel) DEBUG OBJECTEXTEND PRINT(.\Listings\experiment3.lst) OBJECT(.\Objects\experiment3.obj)
+
+line level    source
+
+   1          #include "experiment2.h"
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

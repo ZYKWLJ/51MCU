@@ -1,8 +1,9 @@
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    04/23/2025  21:12:39  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    04/23/2025  22:03:16  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
-D:\3SOFTWARE\KEIL\C51\BIN\BL51.EXE .\Objects\main.obj TO .\Objects\8-定时器 PRINT (.\Listings\8-定时器.m51)
+D:\3SOFTWARE\KEIL\C51\BIN\BL51.EXE .\Objects\main.obj, .\Objects\delay.obj, .\Objects\experiment1.obj, .\Objects\experim
+>> ent2.obj, .\Objects\experiment3.obj TO .\Objects\8-定时器 PRINT (.\Listings\8-定时器.m51)
 
 
 MEMORY MODEL: SMALL
@@ -10,7 +11,12 @@ MEMORY MODEL: SMALL
 
 INPUT MODULES INCLUDED:
   .\Objects\main.obj (MAIN)
+  .\Objects\delay.obj (DELAY)
+  .\Objects\experiment1.obj (EXPERIMENT1)
+  .\Objects\experiment2.obj (EXPERIMENT2)
+  .\Objects\experiment3.obj (EXPERIMENT3)
   D:\3SOFTWARE\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  D:\3SOFTWARE\KEIL\C51\LIB\C51S.LIB (?C_INIT)
 
 
 LINK MAP OF MODULE:  .\Objects\8-定时器 (MAIN)
@@ -21,36 +27,47 @@ LINK MAP OF MODULE:  .\Objects\8-定时器 (MAIN)
 
             * * * * * * *   D A T A   M E M O R Y   * * * * * * *
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
-            DATA    0008H     0002H     UNIT         _DATA_GROUP_
-            IDATA   000AH     0001H     UNIT         ?STACK
+            DATA    0008H     0004H     UNIT         ?DT?EXPERIMENT2
+            DATA    000CH     0002H     UNIT         ?DT?EXPERIMENT1
+            IDATA   000EH     0001H     UNIT         ?STACK
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
             CODE    0000H     0003H     ABSOLUTE     
                     0003H     0008H                  *** GAP ***
             CODE    000BH     0003H     ABSOLUTE     
+* OVERLAP * CODE    000BH     0003H     ABSOLUTE     
                     000EH     07F2H                  *** GAP ***
-            CODE    0800H     001FH     UNIT         ?PR?TIMER0_ROUTINE_1?MAIN
-            CODE    081FH     0015H     UNIT         ?PR?TIMER0_INIT?MAIN
-            CODE    0834H     000CH     UNIT         ?C_C51STARTUP
-            CODE    0840H     0005H     UNIT         ?PR?MAIN?MAIN
+            CODE    0800H     008CH     UNIT         ?C_C51STARTUP
+            CODE    088CH     0054H     UNIT         ?PR?TIMER0_ISR2?EXPERIMENT2
+            CODE    08E0H     0022H     UNIT         ?PR?KEY?EXPERIMENT2
+            CODE    0902H     001FH     UNIT         ?PR?TIMER0_ISR1?EXPERIMENT1
+            CODE    0921H     0015H     UNIT         ?PR?TIMER0_INIT?MAIN
+            CODE    0936H     000EH     UNIT         ?PR?_DELAY_MS?DELAY
+            CODE    0944H     000BH     UNIT         ?C_INITSEG
+            CODE    094FH     0008H     UNIT         ?PR?MAIN?MAIN
+            CODE    0957H     0007H     UNIT         ?PR?_DELAY_10US?DELAY
 
 
 
 OVERLAY MAP OF MODULE:   .\Objects\8-定时器 (MAIN)
 
 
-SEGMENT                             DATA_GROUP 
-  +--> CALLED SEGMENT             START    LENGTH
--------------------------------------------------
-?PR?TIMER0_ROUTINE_1?MAIN         0008H    0002H
-
-*** NEW ROOT ***************************************************
-
-?C_C51STARTUP                     -----    -----
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
   +--> ?PR?MAIN?MAIN
+  +--> ?C_INITSEG
 
-?PR?MAIN?MAIN                     -----    -----
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  04/23/2025  22:03:16  PAGE 2
+
+
+?PR?MAIN?MAIN
   +--> ?PR?TIMER0_INIT?MAIN
+  +--> ?PR?KEY?EXPERIMENT2
+
+?PR?KEY?EXPERIMENT2
+  +--> ?PR?_DELAY_MS?DELAY
 
 
 
@@ -59,63 +76,153 @@ SYMBOL TABLE OF MODULE:  .\Objects\8-定时器 (MAIN)
   VALUE           TYPE          NAME
   ----------------------------------
 
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  04/23/2025  21:12:39  PAGE 2
-
-
   -------         MODULE        MAIN
   C:0000H         SYMBOL        _ICE_DUMMY_
   B:00A8H.7       PUBLIC        EA
-  C:0800H         PUBLIC        Timer0_Routine_1
-  B:00A0H.0       PUBLIC        P2_0
-  C:0840H         PUBLIC        main
-  C:081FH         PUBLIC        Timer0_Init
+  C:094FH         PUBLIC        main
+  C:0921H         PUBLIC        Timer0_Init
   D:0089H         PUBLIC        TMOD
   B:00A8H.1       PUBLIC        ET0
   B:0088H.5       PUBLIC        TF0
   D:008CH         PUBLIC        TH0
   D:008AH         PUBLIC        TL0
   B:0088H.4       PUBLIC        TR0
-  -------         PROC          TIMER0_ROUTINE_1
-  -------         DO            
-  D:0008H         SYMBOL        T0Count
-  -------         ENDDO         
-  C:0800H         LINE#         2
-  C:0802H         LINE#         5
-  C:0805H         LINE#         6
-  C:0808H         LINE#         7
-  C:0810H         LINE#         8
-  C:0816H         LINE#         9
-  C:0816H         LINE#         10
-  C:081AH         LINE#         11
-  C:081CH         LINE#         12
-  C:081CH         LINE#         13
-  -------         ENDPROC       TIMER0_ROUTINE_1
   -------         PROC          TIMER0_INIT
-  C:081FH         LINE#         15
-  C:081FH         LINE#         16
-  C:081FH         LINE#         18
-  C:0822H         LINE#         19
-  C:0825H         LINE#         20
-  C:0828H         LINE#         21
-  C:082BH         LINE#         22
-  C:082DH         LINE#         23
-  C:082FH         LINE#         24
-  C:0831H         LINE#         25
-  C:0833H         LINE#         26
+  C:0921H         LINE#         7
+  C:0921H         LINE#         8
+  C:0921H         LINE#         10
+  C:0924H         LINE#         11
+  C:0927H         LINE#         12
+  C:092AH         LINE#         13
+  C:092DH         LINE#         14
+  C:092FH         LINE#         15
+  C:0931H         LINE#         16
+  C:0933H         LINE#         17
+  C:0935H         LINE#         18
   -------         ENDPROC       TIMER0_INIT
   -------         PROC          MAIN
-  C:0840H         LINE#         28
-  C:0840H         LINE#         29
-  C:0840H         LINE#         30
-  C:0843H         LINE#         31
-  C:0843H         LINE#         32
-  C:0843H         LINE#         33
+  C:094FH         LINE#         21
+  C:094FH         LINE#         22
+  C:094FH         LINE#         23
+  C:0952H         LINE#         24
+  C:0952H         LINE#         25
+  C:0952H         LINE#         26
+  C:0955H         LINE#         27
   -------         ENDPROC       MAIN
   -------         ENDMOD        MAIN
 
+  -------         MODULE        DELAY
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:0957H         PUBLIC        _delay_10us
+  C:0936H         PUBLIC        _delay_ms
+  -------         PROC          _DELAY_10US
+  D:0007H         SYMBOL        ten_us
+  C:0957H         LINE#         10
+  C:0957H         LINE#         11
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  04/23/2025  22:03:16  PAGE 3
+
+
+  C:0957H         LINE#         12
+  C:095DH         LINE#         13
+  -------         ENDPROC       _DELAY_10US
+  -------         PROC          _DELAY_MS
+  D:0007H         SYMBOL        ms
+  -------         DO            
+  D:0007H         SYMBOL        i
+  D:0006H         SYMBOL        j
+  -------         ENDDO         
+  C:0936H         LINE#         21
+  C:0936H         LINE#         22
+  C:0936H         LINE#         24
+  C:093CH         LINE#         25
+  C:0943H         LINE#         26
+  -------         ENDPROC       _DELAY_MS
+  -------         ENDMOD        DELAY
+
+  -------         MODULE        EXPERIMENT1
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  B:00A0H.0       PUBLIC        P2_0
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  C:0902H         PUBLIC        Timer0_Isr1
+  -------         PROC          TIMER0_ISR1
+  -------         DO            
+  D:000CH         SYMBOL        T0Count
+  -------         ENDDO         
+  C:0902H         LINE#         3
+  C:0904H         LINE#         6
+  C:0907H         LINE#         7
+  C:090AH         LINE#         8
+  C:0912H         LINE#         9
+  C:0918H         LINE#         10
+  C:0918H         LINE#         11
+  C:091CH         LINE#         12
+  C:091EH         LINE#         13
+  C:091EH         LINE#         14
+  -------         ENDPROC       TIMER0_ISR1
+  -------         ENDMOD        EXPERIMENT1
+
+  -------         MODULE        EXPERIMENT2
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:00A0H         PUBLIC        P2
+  D:0008H         SYMBOL        T0Count
+  B:00B0H.1       PUBLIC        P3_1
+  D:000AH         PUBLIC        P2_init
+  C:08E0H         PUBLIC        key
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  C:088CH         PUBLIC        Timer0_Isr2
+  D:000BH         PUBLIC        keyNum
+  -------         PROC          KEY
+  C:08E0H         LINE#         6
+  C:08E0H         LINE#         7
+  C:08E3H         LINE#         8
+  C:08E8H         LINE#         9
+  C:08EBH         LINE#         10
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  04/23/2025  22:03:16  PAGE 4
+
+
+  C:08EEH         LINE#         11
+  C:08F3H         LINE#         12
+  C:08FFH         LINE#         13
+  C:08FFH         LINE#         14
+  C:08FFH         LINE#         15
+  C:0901H         LINE#         16
+  -------         ENDPROC       KEY
+  -------         PROC          TIMER0_ISR2
+  C:088CH         LINE#         20
+  C:0895H         LINE#         22
+  C:0898H         LINE#         23
+  C:089BH         LINE#         24
+  C:08A3H         LINE#         25
+  C:08ADH         LINE#         26
+  C:08ADH         LINE#         27
+  C:08B1H         LINE#         28
+  C:08B5H         LINE#         29
+  C:08C2H         LINE#         30
+  C:08C2H         LINE#         31
+  C:08C4H         LINE#         32
+  C:08D4H         LINE#         33
+  C:08D9H         LINE#         34
+  C:08D9H         LINE#         35
+  C:08D9H         LINE#         36
+  -------         ENDPROC       TIMER0_ISR2
+  -------         ENDMOD        EXPERIMENT2
+
+  -------         MODULE        EXPERIMENT3
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  -------         ENDMOD        EXPERIMENT3
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY_10US?DELAY
+
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    000BH
+    TO:      000DH
+
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 003CH BYTE ( 2%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 00D7H BYTE (10%) *
 ******************************************************************************
 
-Program Size: data=11.0 xdata=0 code=75
-LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+Program Size: data=15.0 xdata=0 code=359
+LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)

@@ -1,16 +1,8 @@
 #include <REGX52.h>
-void Timer0_Isr(void) interrupt 1
-{
-    unsigned int T0Count;
-    TL0 = 0x18; // 设置定时初始值
-    TH0 = 0xFC; // 设置定时初始值
-    T0Count++;
-    if (T0Count == 100)
-    {
-        T0Count = 0;
-        P2_0 = ~P2_0;
-    }
-}
+#include "delay.h"
+//#include "experiment1.h"
+#include "experiment2.h"
+//#include "experiment3.h"
 
 void Timer0_Init(void) // 1毫秒@12.000MHz
 {
@@ -25,10 +17,12 @@ void Timer0_Init(void) // 1毫秒@12.000MHz
     EA = 1;       // 使能总中断
 }
 
+
 void main()
 {
     Timer0_Init();
     while (1)
     {
+		key();
     }
 }
