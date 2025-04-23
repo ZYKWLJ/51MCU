@@ -24,8 +24,8 @@ void main()
     unsigned char my_code[7] = {0};
     unsigned char error_count=0;
     const unsigned char error_max_times=3;
-    const unsigned char wait_times=3;
-    unsigned char total_error=1;
+    unsigned char wait_times=2;
+    // unsigned char total_error=1;
     lcd1602_init();
     lcd1602_show_string(0, 0, "Password:");
     lcd1602_show_string(0, 1, "Input:");
@@ -119,10 +119,12 @@ void main()
             }
             if (error_count==error_max_times)
             { 
+                int i=wait_times;//每错一次，就增加1倍延时！
                 // C89要求所有声明要在函数开头，所以这里要把变量定义移到函数开头
-                int i=wait_times*total_error;//每错一次，就增加1倍延时！
-                i=i>99?99:i;//不超过99s的等待时间
-                total_error++;
+                wait_times=wait_times*2>99?99:wait_times*2;
+                // i=wait_times;
+                // i=i>99?99:i;//不超过99s的等待时间
+                // total_error++;
                 lcd1602_show_string(0, 1, "-----Locked-----");
                 lcd1602_show_string(11, 0, "   ");//先将之前的OK或ERR清空
                 while(i>0){

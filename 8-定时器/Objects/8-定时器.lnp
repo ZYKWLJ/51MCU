@@ -1,0 +1,3 @@
+".\Objects\main.obj" 
+TO ".\Objects\8-定时器" 
+PRINT(".\Listings\8-定时器.m51")

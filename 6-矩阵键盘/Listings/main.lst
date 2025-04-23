@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   MAIN                                                              04/22/2025 19:33:13 PAGE 1   
+C51 COMPILER V9.60.7.0   MAIN                                                              04/22/2025 23:53:06 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
@@ -34,8 +34,8 @@ line level    source
   24   1          unsigned char my_code[7] = {0};
   25   1          unsigned char error_count=0;
   26   1          const unsigned char error_max_times=3;
-  27   1          const unsigned char wait_times=3;
-  28   1          unsigned char total_error=1;
+  27   1          unsigned char wait_times=2;
+  28   1          // unsigned char total_error=1;
   29   1          lcd1602_init();
   30   1          lcd1602_show_string(0, 0, "Password:");
   31   1          lcd1602_show_string(0, 1, "Input:");
@@ -62,7 +62,7 @@ line level    source
   51   5                          char error_str[6];
   52   5                          error_str[0] ='E';  
   53   5                          error_str[1] ='R';  
-C51 COMPILER V9.60.7.0   MAIN                                                              04/22/2025 19:33:13 PAGE 2   
+C51 COMPILER V9.60.7.0   MAIN                                                              04/22/2025 23:53:06 PAGE 2   
 
   54   5                          error_str[2] ='R';  
   55   5                          error_str[3] =' ';
@@ -104,78 +104,83 @@ line level    source
   90   5                          lcd1602_show_string(11, 0, "     "); // «Âø’‘≠¿¥µƒERR
   91   5                          lcd1602_show_string(14, 0, "OK");//OKœ‘ æ¡À1s∫Û◊‘∂Øœ˚ ß
   92   5                          // œ‘ æwelcome
-  93   5                          lcd1602_show_string(0, 1, "----welcome-----");
-  94   5                          delay1000ms();
+  93   5                          lcd1602_show_string(0, 1, "                ");
+  94   5                          lcd1602_show_string(0, 1, "welcome");
   95   5                          delay1000ms();
   96   5                          delay1000ms();
-  97   5                          //—”≥Ÿ3s∫Û”÷ø™ º÷ÿ–¬ ‰»Î
-  98   5                          lcd1602_show_string(0, 1, "                ");
-  99   5                          lcd1602_show_string(0, 1, "Input:");
- 100   5                          lcd1602_show_string(6, 1, "------");
- 101   5                          clear_password(&start, my_code); // ≥…π¶¡À“≤“™«Â¡„£°
- 102   5                          error_count=0;
- 103   5                      }
- 104   4                      else
- 105   4                      {
- 106   5                          char error_str[6];
- 107   5                          error_str[0] ='E';  
- 108   5                          error_str[1] ='R';  
- 109   5                          error_str[2] ='R';  
- 110   5                          error_str[3] =' ';
- 111   5                          error_str[4] =++error_count+'0';  //œ‘ æ ß∞‹¥Œ ˝
- 112   5                          error_str[5] ='\0';  
- 113   5                          lcd1602_show_string(11, 0, error_str); // ¥ÌŒÛ÷Æ∫Û£¨«Â¡„÷ÿ–¬ ‰»Î // ERR±»OK≥§£¨ª·◊‘º∫∏
-             -≤∏«
-C51 COMPILER V9.60.7.0   MAIN                                                              04/22/2025 19:33:13 PAGE 3   
+  97   5                          delay1000ms();
+  98   5                         
+  99   5                          //—”≥Ÿ3s∫Û”÷ø™ º÷ÿ–¬ ‰»Î
+ 100   5                          lcd1602_show_string(11, 0, "     "); // «Âø’‘≠¿¥µƒOK
+ 101   5                          lcd1602_show_string(0, 1, "                ");
+ 102   5                          lcd1602_show_string(0, 1, "Input:");
+ 103   5                          lcd1602_show_string(6, 1, "------");
+ 104   5                          clear_password(&start, my_code); // ≥…π¶¡À“≤“™«Â¡„£°
+ 105   5                          error_count=0;
+ 106   5                      }
+ 107   4                      else
+ 108   4                      {
+ 109   5                          char error_str[6];
+ 110   5                          error_str[0] ='E';  
+ 111   5                          error_str[1] ='R';  
+ 112   5                          error_str[2] ='R';  
+ 113   5                          error_str[3] =' ';
+ 114   5                          error_str[4] =++error_count+'0';  //œ‘ æ ß∞‹¥Œ ˝
+C51 COMPILER V9.60.7.0   MAIN                                                              04/22/2025 23:53:06 PAGE 3   
 
- 114   5                          clear_password(&start, my_code);
- 115   5                      }
- 116   4                  }
- 117   3                  if (error_count==error_max_times)
- 118   3                  { 
- 119   4                      // C89“™«ÛÀ˘”–…˘√˜“™‘⁄∫Ø ˝ø™Õ∑£¨À˘“‘’‚¿Ô“™∞—±‰¡ø∂®“Â“∆µΩ∫Ø ˝ø™Õ∑
- 120   4                      int i=wait_times*total_error;//√ø¥Ì“ª¥Œ£¨æÕ‘ˆº”1±∂—” ±£°
- 121   4                      i=i>99?99:i;//≤ª≥¨π˝99sµƒµ»¥˝ ±º‰
- 122   4                      total_error++;
- 123   4                      lcd1602_show_string(0, 1, "-----Locked-----");
- 124   4                      lcd1602_show_string(11, 0, "   ");//œ»Ω´÷Æ«∞µƒOKªÚERR«Âø’
- 125   4                      while(i>0){
- 126   5                          //”“…œ∑Ωœ‘ æ—” ±–≈œ¢£¨µπº∆ ±£°
- 127   5                          if(i<10){
- 128   6                              char wait_str[3];
- 129   6                              wait_str[0]=i+'0';
- 130   6                              wait_str[1]='s';
- 131   6                              wait_str[2]='\0';
- 132   6                              lcd1602_show_string(14, 0,wait_str);
- 133   6                          }else{
- 134   6                              //œ‘ æ¡ΩŒª ˝
- 135   6                              char wait_str[4];
- 136   6                              wait_str[0]=i/10+'0';
- 137   6                              wait_str[1]=i%10+'0';
- 138   6                              wait_str[2]='s';
- 139   6                              wait_str[3]='\0';
- 140   6                              lcd1602_show_string(13, 0,wait_str);
- 141   6                          }
- 142   5                          delay1000ms();//—” ± ±£¨’‚∏ˆ ±∫Ú ‰»Î«¯œ‘ æLocked
- 143   5                          i--;
- 144   5                      }
- 145   4                      lcd1602_show_string(13, 0, "   ");//Ω´÷Æ«∞µƒº∆ ±–≈œ¢«Âø’
- 146   4                      lcd1602_show_string(0, 1, "                ");//«Âø’…œ“ª––µƒÀ¯◊°–≈œ¢
- 147   4                      error_count=0;//÷ÿ÷√¥ÌŒÛ¥Œ ˝
- 148   4                      lcd1602_show_string(0, 1, "Input:");
- 149   4                      lcd1602_show_string(6, 1, "------");//À¯◊°µƒ ±º‰π˝∫Û£¨”÷ø…“‘ø™ º ‰»Î
- 150   4                  }
- 151   3              }
- 152   2          }
- 153   1      }
+ 115   5                          error_str[5] ='\0';  
+ 116   5                          lcd1602_show_string(11, 0, error_str); // ¥ÌŒÛ÷Æ∫Û£¨«Â¡„÷ÿ–¬ ‰»Î // ERR±»OK≥§£¨ª·◊‘º∫∏
+             -≤∏«
+ 117   5                          clear_password(&start, my_code);
+ 118   5                      }
+ 119   4                  }
+ 120   3                  if (error_count==error_max_times)
+ 121   3                  { 
+ 122   4                      int i=wait_times;//√ø¥Ì“ª¥Œ£¨æÕ‘ˆº”1±∂—” ±£°
+ 123   4                      // C89“™«ÛÀ˘”–…˘√˜“™‘⁄∫Ø ˝ø™Õ∑£¨À˘“‘’‚¿Ô“™∞—±‰¡ø∂®“Â“∆µΩ∫Ø ˝ø™Õ∑
+ 124   4                      wait_times=wait_times*2>99?99:wait_times*2;
+ 125   4                      // i=wait_times;
+ 126   4                      // i=i>99?99:i;//≤ª≥¨π˝99sµƒµ»¥˝ ±º‰
+ 127   4                      // total_error++;
+ 128   4                      lcd1602_show_string(0, 1, "-----Locked-----");
+ 129   4                      lcd1602_show_string(11, 0, "   ");//œ»Ω´÷Æ«∞µƒOKªÚERR«Âø’
+ 130   4                      while(i>0){
+ 131   5                          //”“…œ∑Ωœ‘ æ—” ±–≈œ¢£¨µπº∆ ±£°
+ 132   5                          if(i<10){
+ 133   6                              char wait_str[3];
+ 134   6                              wait_str[0]=i+'0';
+ 135   6                              wait_str[1]='s';
+ 136   6                              wait_str[2]='\0';
+ 137   6                              lcd1602_show_string(14, 0,wait_str);
+ 138   6                          }else{
+ 139   6                              //œ‘ æ¡ΩŒª ˝
+ 140   6                              char wait_str[4];
+ 141   6                              wait_str[0]=i/10+'0';
+ 142   6                              wait_str[1]=i%10+'0';
+ 143   6                              wait_str[2]='s';
+ 144   6                              wait_str[3]='\0';
+ 145   6                              lcd1602_show_string(13, 0,wait_str);
+ 146   6                          }
+ 147   5                          delay1000ms();//—” ± ±£¨’‚∏ˆ ±∫Ú ‰»Î«¯œ‘ æLocked
+ 148   5                          i--;
+ 149   5                      }
+ 150   4                      lcd1602_show_string(13, 0, "   ");//Ω´÷Æ«∞µƒº∆ ±–≈œ¢«Âø’
+ 151   4                      lcd1602_show_string(0, 1, "                ");//«Âø’…œ“ª––µƒÀ¯◊°–≈œ¢
+ 152   4                      error_count=0;//÷ÿ÷√¥ÌŒÛ¥Œ ˝
+ 153   4                      lcd1602_show_string(0, 1, "Input:");
+ 154   4                      lcd1602_show_string(6, 1, "------");//À¯◊°µƒ ±º‰π˝∫Û£¨”÷ø…“‘ø™ º ‰»Î
+ 155   4                  }
+ 156   3              }
+ 157   2          }
+ 158   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    752    ----
-   CONSTANT SIZE    =    104    ----
+   CODE SIZE        =    770    ----
+   CONSTANT SIZE    =     95    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----      32
+   DATA SIZE        =   ----      31
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
