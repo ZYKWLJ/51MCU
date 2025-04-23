@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   MAIN                                                              04/23/2025 16:16:23 PAGE 1   
+C51 COMPILER V9.60.7.0   MAIN                                                              04/23/2025 21:12:39 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
@@ -8,40 +8,45 @@ COMPILER INVOKED BY: D:\3software\keil\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) 
 
 line level    source
 
-   1          #include<REGX52.h>
-   2          void timer_init_0(){
-   3   1          TMOD=0x01;//工作在模式1，0000 0001
-   4   1          TF0=0;//中断标志位初始值为0
-   5   1          TR0=1;//定时器0开始运行
-   6   1          TH0=64536>>8;//中断计时高8位赋初值，相当于64535/256
-   7   1          TL0=64536&0x00FF;//中断计时低8位赋初值，相当于64535%256
-   8   1          ET0=1;//允许定时器0中断
-   9   1          EA=1;//允许总中断
-  10   1          PT0=0;//低优先级
-  11   1      }
-  12          
-  13          void main(){
-  14   1          timer_init_0();
-  15   1          while(1){
-  16   2      
-  17   2          }
-  18   1      }
-  19          
-  20          void Timer0_Routine(void) interrupt 1{
-  21   1          unsigned int T0Count;
-  22   1          // 达到了1ms，重新计时下一个1ms
-  23   1          TH0=64536>>8;//中断计时高8位赋初值，相当于64535/256
-  24   1          TL0=64536&0x00FF;//中断计时低8位赋初值，相当于64535%256 
-  25   1          T0Count++;
-  26   1          if(T0Count==1000){
-  27   2              T0Count=0;
-  28   2              P2_0=~P2_0;
-  29   2          }
-  30   1      }
+   1          #include <REGX52.h>
+   2          void Timer0_Routine_1(void) interrupt 1
+   3          {
+   4   1          unsigned int T0Count;
+   5   1          TL0 = 0x18; // 设置定时初始值
+   6   1          TH0 = 0xFC; // 设置定时初始值
+   7   1          T0Count++;
+   8   1          if (T0Count == 100)
+   9   1          {
+  10   2              T0Count = 0;
+  11   2              P2_0 = ~P2_0;
+  12   2          }
+  13   1      }
+  14          
+  15          void Timer0_Init(void) // 1毫秒@12.000MHz
+  16          {
+  17   1          // AUXR &= 0x7F;                    //定时器时钟12T模式
+  18   1          TMOD &= 0xF0; // 设置定时器模式
+  19   1          TMOD |= 0x01; // 设置定时器模式
+  20   1          TL0 = 0x18;   // 设置定时初始值
+  21   1          TH0 = 0xFC;   // 设置定时初始值
+  22   1          TF0 = 0;      // 清除TF0标志
+  23   1          TR0 = 1;      // 定时器0开始计时
+  24   1          ET0 = 1;      // 使能定时器0中断
+  25   1          EA = 1;       // 使能总中断
+  26   1      }
+  27          
+  28          void main()
+  29          {
+  30   1          Timer0_Init();
+  31   1          while (1)
+  32   1          {
+  33   2          }
+  34   1      }
+  35          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     64    ----
+   CODE SIZE        =     57    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
