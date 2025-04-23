@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   EXPERIMENT3                                                       04/23/2025 21:52:29 PAGE 1   
+C51 COMPILER V9.60.7.0   EXPERIMENT3                                                       04/23/2025 23:45:43 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE EXPERIMENT3
@@ -8,15 +8,55 @@ COMPILER INVOKED BY: D:\3software\keil\C51\BIN\C51.EXE experiment3.c OPTIMIZE(8,
 
 line level    source
 
-   1          #include "experiment2.h"
+   1          #include "experiment3.h"
+   2          #include "delay.h"
+   3          #include <REGX52.h>
+   4          //从00:00:00->23:59:59计时器
+   5          unsigned char hours=0;//时钟
+   6          unsigned char minutes=0;//分钟
+   7          unsigned char seconds=0;//秒钟
+   8          unsigned char count=0;//统计到达1s的1000次
+   9          
+  10          void num2str(unsigned char *ptr, unsigned char num) {
+  11   1          *(ptr) = (num/10) + '0';    // 十位
+  12   1          *(ptr+1) = (num%10) + '0';  // 个位
+  13   1      }
+  14          unsigned char* time(unsigned char hours,unsigned char minutes,unsigned char seconds){
+  15   1              //00:00:00共8位
+  16   1              static unsigned char now[9];
+  17   1              now[2]=now[5]=':';
+  18   1              num2str(now+0,hours);
+  19   1              num2str(now+3,minutes);
+  20   1              num2str(now+6,seconds);
+  21   1              now[8] = '\0';  // 添加字符串结束符
+  22   1              return now;
+  23   1      }
+  24          
+  25          void Timer0_Isr3(void) interrupt 1{
+  26   1              //重置计数器TH、TL
+  27   1              TL0 = 0x18;   // 设置定时初始值
+  28   1          TH0 = 0xFC;   // 设置定时初始值
+  29   1              count++;
+  30   1              if(count==1000){
+  31   2                       // 调试：翻转P2.0引脚观察中断是否触发
+  32   2                      P2_0 = ~P2_0;
+  33   2                      count=0;
+  34   2                      seconds++;
+  35   2                      minutes+=seconds/60;
+  36   2                      hours+=minutes/60;
+  37   2                      minutes%=60;
+  38   2                      seconds%=60;
+  39   2                      lcd1602_show_string(0,0,time(hours,minutes,seconds));
+  40   2              }
+  41   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   ----    ----
+   CODE SIZE        =    203    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----    ----
+   DATA SIZE        =     13    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

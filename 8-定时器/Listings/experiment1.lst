@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   EXPERIMENT1                                                       04/23/2025 21:52:28 PAGE 1   
+C51 COMPILER V9.60.7.0   EXPERIMENT1                                                       04/23/2025 23:45:42 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE EXPERIMENT1
@@ -9,10 +9,10 @@ COMPILER INVOKED BY: D:\3software\keil\C51\BIN\C51.EXE experiment1.c OPTIMIZE(8,
 line level    source
 
    1          #include "experiment1.h"
-   2          
+   2          static unsigned int T0Count=0;
    3          void Timer0_Isr1(void) interrupt 1
    4          {
-   5   1          static unsigned int T0Count;
+   5   1          
    6   1          TL0 = 0x18; // 设置定时初始值
    7   1          TH0 = 0xFC; // 设置定时初始值
    8   1          T0Count++;

@@ -1,5 +1,5 @@
 #include "delay.h"
-#include <REGX52.h>
+//#include <REGX52.h>
 
 /*******************************************************************************
 * 函 数 名       : delay_10us
@@ -7,7 +7,7 @@
 * 输    入       : ten_us
 * 输    出    	 : 无
 *******************************************************************************/
-void delay_10us(unsigned char ten_us)
+void delay_10us_(unsigned char ten_us)
 {
 	while(ten_us--);	
 }
@@ -18,7 +18,7 @@ void delay_10us(unsigned char ten_us)
 * 输    入       : ms：ms延时时间
 * 输    出    	 : 无
 *******************************************************************************/
-void delay_ms(unsigned char ms)
+void delay_ms_(unsigned char ms)
 {
 	unsigned char i,j;
 	for(i=ms;i>0;i--)

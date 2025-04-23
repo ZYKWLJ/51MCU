@@ -46,7 +46,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects\</OutputDirectory>
-          <OutputName>8-定时器</OutputName>
+          <OutputName>时钟</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -382,14 +382,14 @@
               <FilePath>.\main.c</FilePath>
             </File>
             <File>
-              <FileName>lcd1602.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\lcd1602.h</FilePath>
-            </File>
-            <File>
               <FileName>lcd1602.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\lcd1602.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd1602.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\lcd1602.h</FilePath>
             </File>
           </Files>
         </Group>

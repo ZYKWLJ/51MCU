@@ -1,7 +1,4 @@
 ".\Objects\main.obj",
-".\Objects\delay.obj",
-".\Objects\experiment1.obj",
-".\Objects\experiment2.obj",
-".\Objects\experiment3.obj" 
+".\Objects\lcd1602.obj" 
 TO ".\Objects\8-定时器" 
 PRINT(".\Listings\8-定时器.m51")
