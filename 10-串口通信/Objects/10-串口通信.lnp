@@ -1,0 +1,5 @@
+".\Objects\main.obj",
+".\Objects\lcd1602.obj",
+".\Objects\UART.obj" 
+TO ".\Objects\10-串口通信" 
+PRINT(".\Listings\10-串口通信.m51") RAMSIZE(256) 
